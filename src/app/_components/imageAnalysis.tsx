@@ -4,7 +4,6 @@ import { FileIcon } from "../_icons/fileIcon";
 import { Reload } from "../_icons/reload";
 import { Stars } from "../_icons/stars";
 import { ImageInputPart } from "./imageInputPart";
-import { log } from "console";
 
 export const ImageAnalysis = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -65,7 +64,7 @@ export const ImageAnalysis = () => {
           onClick={handleGenerate}
           className={` text-[#FAFAFA] w-[94px] h-[40px] rounded-md font-medium mt-2 ${
             isGenerating
-              ? "bg-[#18181B]/50 w-[120px]"
+              ? "bg-[#18181B]/50 w-[120px] cursor-wait"
               : "bg-[#18181B] cursor-pointer"
           }`}
         >

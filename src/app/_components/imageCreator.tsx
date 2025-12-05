@@ -27,6 +27,7 @@ export const ImageCreator = () => {
       <div className="w-full flex justify-end">
         <button
           className={`bg-[#18181B]/50 text-[#FAFAFA] w-[94px] h-[40px] rounded-md font-medium mt-2`}
+          //   onClick={}
         >
           {" "}
           Generate{" "}
