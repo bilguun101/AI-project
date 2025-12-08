@@ -4,6 +4,7 @@ import { Reload } from "../_icons/reload";
 import { Stars } from "../_icons/stars";
 import { Photo } from "../_icons/photo";
 import { useState } from "react";
+import { WhiteReload } from "../_icons/whiteReload";
 
 export const ImageCreator = () => {
   const [textArea, setTextArea] = useState("");
@@ -41,9 +42,16 @@ export const ImageCreator = () => {
           <Stars />
           <p className="text-[20px] font-semibold"> Food image creator </p>
         </div>
-        <button className="w-12 h-10 border border-[#E4E4E7] rounded-md cursor-pointer flex justify-center items-center hover:bg-gray-200 duration-200">
-          {" "}
-          <Reload />{" "}
+        <button
+          className={`w-12 h-10 border border-[#E4E4E7] rounded-md flex justify-center items-center duration-300 ${
+            imageUrl ? "bg-[#18181B] cursor-pointer" : "bg-white"
+          }`}
+          onClick={() => {
+            setTextArea("");
+            setImageUrl(null);
+          }}
+        >
+          {imageUrl ? <WhiteReload /> : <Reload />}
         </button>
       </div>
       <div className="text-muted-foreground">
@@ -53,6 +61,7 @@ export const ImageCreator = () => {
       <Textarea
         placeholder="Enter food description..."
         className="w-full h-[130px] border border-[#E4E4E7] rounded-md mt-2"
+        value={textArea}
         onChange={(e) => setTextArea(e.target.value)}
       />
       <div className="w-full flex justify-end">

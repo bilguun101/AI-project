@@ -6,6 +6,7 @@ import { FileIcon } from "../_icons/fileIcon";
 import { Reload } from "../_icons/reload";
 import { Stars } from "../_icons/stars";
 import { GoogleGenAI } from "@google/genai";
+import { WhiteReload } from "../_icons/whiteReload";
 
 export const IngredientRecognition = () => {
   const [text, setText] = useState("");
@@ -53,8 +54,16 @@ export const IngredientRecognition = () => {
           <Stars />
           <p className="text-[20px] font-semibold"> Ingredient recognition </p>
         </div>
-        <button className="w-12 h-10 border border-[#E4E4E7] rounded-md cursor-pointer flex justify-center items-center hover:bg-gray-200 duration-200">
-          <Reload />
+        <button
+          className={`w-12 h-10 border border-[#E4E4E7] rounded-md flex justify-center items-center duration-300 ${
+            result ? "bg-[#18181B] cursor-pointer" : "bg-white"
+          }`}
+          onClick={() => {
+            setText("");
+            setResult("");
+          }}
+        >
+          {result ? <WhiteReload /> : <Reload />}
         </button>
       </div>
 

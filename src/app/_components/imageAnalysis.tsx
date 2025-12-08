@@ -4,6 +4,7 @@ import { FileIcon } from "../_icons/fileIcon";
 import { Reload } from "../_icons/reload";
 import { Stars } from "../_icons/stars";
 import { ImageInputPart } from "../_AI_components/imageInputPart";
+import { WhiteReload } from "../_icons/whiteReload";
 
 export const ImageAnalysis = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -44,14 +45,20 @@ export const ImageAnalysis = () => {
           <Stars />
           <p className="text-[20px] font-semibold"> Image analysis </p>
         </div>
-        <button className="w-12 h-10 border border-[#E4E4E7] rounded-md cursor-pointer flex justify-center items-center hover:bg-gray-200 duration-200">
-          {" "}
-          <Reload />{" "}
+        <button
+          className={`w-12 h-10 border border-[#E4E4E7] rounded-md flex justify-center items-center duration-300 ${
+            selectedFile ? "bg-[#18181B] cursor-pointer" : "bg-white"
+          }`}
+          onClick={() => {
+            setSelectedFile(null);
+            setResult("");
+          }}
+        >
+          {selectedFile ? <WhiteReload /> : <Reload />}
         </button>
       </div>
       <div className="text-muted-foreground">
-        {" "}
-        Upload a food photo, and AI will detect the ingredients.{" "}
+        Upload a food photo, and AI will detect the ingredients.
       </div>
       <div className="mt-2">
         <ImageInputPart
@@ -68,8 +75,7 @@ export const ImageAnalysis = () => {
               : "bg-[#18181B] cursor-pointer"
           }`}
         >
-          {" "}
-          {`${isGenerating ? "Generating..." : "Generate"}`}{" "}
+          {`${isGenerating ? "Generating..." : "Generate"}`}
         </button>
       </div>
       <div className="w-full flex justify-start">
@@ -83,14 +89,13 @@ export const ImageAnalysis = () => {
           selectedFile ? "border w-full rounded-md flex items-center pl-3" : ""
         } ${result ? "text-black" : "text-[#71717A]"}`}
       >
-        {" "}
         {`${
           result
             ? result
             : isGenerating
             ? "Working..."
             : "First, enter your image to recognize an ingredients."
-        }`}{" "}
+        }`}
       </div>
     </div>
   );
