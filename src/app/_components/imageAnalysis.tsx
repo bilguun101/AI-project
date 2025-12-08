@@ -3,7 +3,7 @@ import { useState } from "react";
 import { FileIcon } from "../_icons/fileIcon";
 import { Reload } from "../_icons/reload";
 import { Stars } from "../_icons/stars";
-import { ImageInputPart } from "./imageInputPart";
+import { ImageInputPart } from "../_AI_components/imageInputPart";
 
 export const ImageAnalysis = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);

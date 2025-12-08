@@ -1,9 +1,39 @@
+"use client";
 import { Textarea } from "@/components/ui/textarea";
 import { Reload } from "../_icons/reload";
 import { Stars } from "../_icons/stars";
 import { Photo } from "../_icons/photo";
+import { useState } from "react";
 
 export const ImageCreator = () => {
+  const [textArea, setTextArea] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+
+  const handleGenerate = async () => {
+    if (!textArea.trim()) return;
+    setLoading(true);
+
+    try {
+      const data = await (
+        await fetch("/api/text-to-image", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ textArea }),
+        })
+      ).json();
+
+      if (data.error) {
+        console.error(data.error);
+      } else if (data.image) {
+        setImageUrl(data.image);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div className="w-full">
       <div className="flex justify-between pt-6">
@@ -23,14 +53,22 @@ export const ImageCreator = () => {
       <Textarea
         placeholder="Enter food description..."
         className="w-full h-[130px] border border-[#E4E4E7] rounded-md mt-2"
+        onChange={(e) => setTextArea(e.target.value)}
       />
       <div className="w-full flex justify-end">
         <button
-          className={`bg-[#18181B]/50 text-[#FAFAFA] w-[94px] h-[40px] rounded-md font-medium mt-2`}
-          //   onClick={}
+          className={`text-[#FAFAFA] w-[94px] h-[40px] rounded-md font-medium mt-2 duration-200 ${
+            textArea.length > 0
+              ? "bg-[#18181B] cursor-pointer"
+              : "bg-[#18181B]/50"
+          } ${
+            loading
+              ? "bg-[#18181B]/50 w-[120px]"
+              : "bg-[#18181B] cursor-pointer"
+          }`}
+          onClick={handleGenerate}
         >
-          {" "}
-          Generate{" "}
+          {loading ? "Generating..." : "Generate"}
         </button>
       </div>
       <div className="w-full flex justify-start">
@@ -39,9 +77,19 @@ export const ImageCreator = () => {
           <p className="text-[20px] font-semibold"> Result </p>
         </div>
       </div>
-      <div className="text-[#71717A] mt-2">
-        {" "}
-        First, enter your text to generate an image.{" "}
+      <div>
+        {!imageUrl ? (
+          <p className="text-[#71717A] mt-2">
+            {" "}
+            First, enter your text to generate an image.{" "}
+          </p>
+        ) : (
+          <img
+            src={imageUrl}
+            alt="Generated image"
+            className="mt-4 w-full rounded-md border"
+          />
+        )}
       </div>
     </div>
   );

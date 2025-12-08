@@ -77,7 +77,7 @@ export const IngredientRecognition = () => {
           onClick={handleGenerate}
           className={`text-[#FAFAFA] w-[94px] h-[40px] rounded-md font-medium mt-2 ${
             isLoading
-              ? "bg-[#18181B]/30 cursor-wait"
+              ? "bg-[#18181B]/30 cursor-wait w-[120px]"
               : "bg-[#18181B] cursor-pointer"
           }`}
         >
